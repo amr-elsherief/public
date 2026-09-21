@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Competitive Intelligence Dashboard</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; margin: 0; padding: 28px; line-height: 1.45; color: #222; }
+  header { border-bottom: 2px solid #222; margin-bottom: 22px; padding-bottom: 12px; }
+  h1 { margin: 0 0 5px; font-size: 26px; }
+  h2 { margin-top: 30px; border-bottom: 1px solid #bbb; padding-bottom: 5px; font-size: 19px; }
+  h3 { font-size: 15px; margin: 12px 0 6px; }
+  p { margin: 6px 0; }
+  .meta { font-size: 12px; color: #666; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .card { border: 1px solid #ccc; border-radius: 6px; padding: 12px; }
+  .headline { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+  .badge { display: inline-block; border: 1px solid #999; border-radius: 999px; padding: 2px 8px; font-size: 11px; margin-right: 5px; }
+  .status-sufficient { border-color: #287a3d; color: #287a3d; }
+  .status-thin { border-color: #a33; color: #a33; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 12px; }
+  th, td { border: 1px solid #d7d7d7; padding: 7px 8px; text-align: left; vertical-align: top; }
+  th { background: #f2f2f2; }
+  ul { margin: 6px 0; padding-left: 20px; }
+  .small { font-size: 11px; color: #666; }
+  .priority { font-weight: 700; }
+  .evidence-id { font-family: monospace; font-size: 11px; }
+  .empty { color: #999; font-style: italic; }
+  .error { border: 1px solid #a33; padding: 12px; border-radius: 6px; color: #a33; white-space: pre-wrap; }
+  .scroll { overflow-x: auto; }
+  @media print { body { padding: 12mm; } .card { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<!-- n8n replaces the data token in the application/json script below with JSON.stringify(researchData).
+     Escape '<' as \\u003c before replacement so model/web text cannot terminate this script tag. -->
+<script id="dashboard-data" type="application/json">{"meta":{"schema_version":"1.0","run_date":"2025-07-14","product":"Qwen3.5-35B-A3B","provider":"Alibaba / Qwen","perspective":"product_owner","research_window":"Baseline run; priority on material developments through 2025-07-14","previous_run_available":false},"coverage":{"overall":"thin","topics":[{"topic":"product_snapshot","status":"partial","notes":"Qwen3.5-35B-A3B does not appear in any verified public release as of the research date. The Qwen3 series (released April-May 2025) includes a Qwen3-30B-A3B MoE model, but 'Qwen3.5-35B-A3B' is not listed on Hugging Face, official Qwen GitHub, or any credible technical publication. The product name may be provisional or not yet released. Data is sourced from the closest verifiable analog (Qwen3-30B-A3B) with explicit caveats. All product-specific fields are set accordingly."},{"topic":"benchmarks","status":"partial","notes":"Benchmark data exists for Qwen3-30B-A3B (vendor-published). No independent benchmark specifically for 'Qwen3.5-35B-A3B' found. DeepSeek-V3.2 benchmark data is partial: DeepSeek-V3 (March 2025 update) has vendor-published and some independent results; 'DeepSeek-V3.2' as a distinct version identifier is not confirmed in primary sources as of research date."},{"topic":"deployment_efficiency","status":"partial","notes":"Deployment data sourced from Qwen3-30B-A3B official model card and community runtime support data. DeepSeek-V3 deployment data available from official sources."},{"topic":"capabilities","status":"partial","notes":"Capability claims sourced from vendor-published model cards and technical blog posts. Independent capability verification is limited."},{"topic":"competitors","status":"partial","notes":"DeepSeek-V3 (and its March 2025 update) is well-documented. 'DeepSeek-V3.2' as a distinct named release is not confirmed in primary sources; treated as DeepSeek-V3 (0324 / March 2025 update) throughout."},{"topic":"ecosystem_adoption","status":"partial","notes":"Hugging Face download counts are approximate and time-windowed; exact figures for specific model variants are not always publicly surfaced. Runtime support data is sourced from official documentation."},{"topic":"changes","status":"not_found","notes":"No previous run available. This is the baseline."}]},"executive_position":{"headline":"CRITICAL DATA GAP: 'Qwen3.5-35B-A3B' cannot be verified as a released model as of 2025-07-14. The closest verified product is Qwen3-30B-A3B. Competitive analysis proceeds on that basis with explicit uncertainty flags. Against DeepSeek-V3 (the closest confirmed version to 'DeepSeek-V3.2'), Qwen3-30B-A3B offers superior local-deployment efficiency due to lower active parameter count (3B active vs 37B active for DeepSeek-V3) but trails on raw benchmark performance at scale.","overall_position":"insufficient_evidence","strongest_competitor":{"name":"DeepSeek-V3 (March 2025 / 0324 update)","why":"DeepSeek-V3 is a 671B total / 37B active MoE model that consistently scores at or near the top of open-weight leaderboards on coding, math, and instruction following, outperforming Qwen3-30B-A3B on most capability benchmarks. Its open-weight release under MIT license and strong community ecosystem make it a direct threat in the self-hosted segment.","evidence_ids":["E001","E002","E003","E004"]},"top_strengths":[{"text":"Extreme local-deployment efficiency: Qwen3-30B-A3B activates only ~3B parameters per forward pass, enabling inference on consumer-grade GPUs (single RTX 4090 or equivalent) that cannot run DeepSeek-V3.","evidence_ids":["E005","E006"]},{"text":"Hybrid thinking mode: Qwen3 models support both non-thinking (fast) and thinking (extended reasoning) modes in a single model, providing flexibility without deploying separate models.","evidence_ids":["E007"]},{"text":"Strong multilingual coverage: Qwen3 series supports 119 languages and dialects, with explicit training on diverse multilingual corpora.","evidence_ids":["E007","E008"]},{"text":"Apache 2.0 license on Qwen3 models allows commercial use and modification without royalty, matching or exceeding DeepSeek-V3's MIT license permissiveness.","evidence_ids":["E009","E010"]}],"top_weaknesses":[{"text":"Raw benchmark performance: Qwen3-30B-A3B trails DeepSeek-V3 on most major benchmarks (MMLU, HumanEval, MATH, GPQA) where absolute capability is measured, due to the large parameter differential (3B active vs 37B active).","evidence_ids":["E002","E003","E011"]},{"text":"Model identity uncertainty: 'Qwen3.5-35B-A3B' is not a confirmed released model, creating marketing and adoption risk if customers cannot find the product.","evidence_ids":["E012"]},{"text":"Context window: Qwen3-30B-A3B supports 32K tokens natively (128K with YaRN extrapolation noted in some sources but not confirmed across all runtimes), while DeepSeek-V3 supports 128K tokens natively.","evidence_ids":["E005","E013"]},{"text":"Ecosystem maturity: DeepSeek-V3 has broader third-party integration and a larger community following given its earlier release and higher-profile launch.","evidence_ids":["E014","E015"]}],"biggest_threat":{"text":"DeepSeek continues iterating rapidly on open-weight MoE models. If DeepSeek releases a small-active-parameter MoE variant (analogous to DeepSeek-V3's architecture but targeting \u003c5B active parameters for consumer deployment), it would directly compete on Qwen3-30B-A3B's primary efficiency advantage.","evidence_ids":["E001","E004"]}},"changes":{"status":"baseline","new":[],"changed":[],"removed":[]},"product_snapshot":{"architecture":"MoE (Mixture of Experts), decoder-only transformer. NOTE: 'Qwen3.5-35B-A3B' not found in public sources. Data below is from Qwen3-30B-A3B, the closest confirmed analog. Fields marked [UNVERIFIED FOR NAMED PRODUCT].","total_parameters_b":30.5,"active_parameters_b":3,"context_window_tokens":32768,"license":"Apache 2.0","modalities":["text"],"release_date":"2025-04-29","official_model_url":"https://huggingface.co/Qwen/Qwen3-30B-A3B","evidence_ids":["E005","E006","E007","E009"]},"benchmark_scorecard":[{"benchmark":"MMLU","category":"knowledge","higher_is_better":true,"scores":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","score":79.5,"unit":"accuracy %","variant":"5-shot","source_type":"vendor","evidence_id":"E011"},{"model":"DeepSeek-V3 (0324)","score":88.5,"unit":"accuracy %","variant":"5-shot","source_type":"vendor","evidence_id":"E003"}],"comparability":"limited","notes":"Both scores are vendor-published. Evaluation settings (prompting, few-shot details, version of MMLU) may differ. Do not treat as a direct head-to-head. Qwen3-30B-A3B score is reported in Qwen3 technical blog. DeepSeek-V3 score from DeepSeek-V3 technical report (March 2025 update)."},{"benchmark":"MATH-500","category":"reasoning","higher_is_better":true,"scores":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","score":85.7,"unit":"accuracy %","variant":"thinking mode enabled","source_type":"vendor","evidence_id":"E011"},{"model":"DeepSeek-V3 (0324)","score":90.2,"unit":"accuracy %","variant":null,"source_type":"vendor","evidence_id":"E003"}],"comparability":"limited","notes":"Qwen3-30B-A3B score uses thinking mode, which is not equivalent to standard inference. DeepSeek-V3 score from vendor technical report. Prompting and pass@k settings not confirmed identical."},{"benchmark":"HumanEval","category":"coding","higher_is_better":true,"scores":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","score":null,"unit":"pass@1 %","variant":null,"source_type":"vendor","evidence_id":"E016"},{"model":"DeepSeek-V3 (0324)","score":92,"unit":"pass@1 %","variant":null,"source_type":"vendor","evidence_id":"E003"}],"comparability":"not_comparable","notes":"Qwen3-30B-A3B HumanEval score not found in primary sources at time of research. DeepSeek-V3 score from vendor technical report. Cannot compare."},{"benchmark":"LiveCodeBench","category":"coding","higher_is_better":true,"scores":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","score":51.4,"unit":"pass@1 %","variant":"thinking mode, v0.5","source_type":"vendor","evidence_id":"E011"},{"model":"DeepSeek-V3 (0324)","score":49.2,"unit":"pass@1 %","variant":"v0.5","source_type":"vendor","evidence_id":"E003"}],"comparability":"limited","notes":"Both scores vendor-published. Qwen3-30B-A3B uses thinking mode. If thinking mode is disabled, Qwen3-30B-A3B score would likely be lower. Benchmark version stated as v0.5 for both but prompting methodology differences not ruled out."},{"benchmark":"GPQA Diamond","category":"reasoning","higher_is_better":true,"scores":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","score":63,"unit":"accuracy %","variant":"thinking mode","source_type":"vendor","evidence_id":"E011"},{"model":"DeepSeek-V3 (0324)","score":68.4,"unit":"accuracy %","variant":null,"source_type":"vendor","evidence_id":"E003"}],"comparability":"limited","notes":"Vendor-published scores only. Qwen3-30B-A3B uses thinking mode. Different evaluation conditions likely."},{"benchmark":"BFCL (Berkeley Function Calling Leaderboard)","category":"agent_tool_use","higher_is_better":true,"scores":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","score":null,"unit":"accuracy %","variant":null,"source_type":"independent","evidence_id":"E017"},{"model":"DeepSeek-V3 (0324)","score":null,"unit":"accuracy %","variant":null,"source_type":"independent","evidence_id":"E017"}],"comparability":"not_comparable","notes":"BFCL is an independent leaderboard. Specific scores for these exact model versions not confirmed in primary sources at research date. Null scores recorded rather than estimated."},{"benchmark":"MT-Bench / Arena (Chatbot Arena ELO)","category":"instruction_following","higher_is_better":true,"scores":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","score":null,"unit":"ELO","variant":null,"source_type":"independent","evidence_id":"E018"},{"model":"DeepSeek-V3 (0324)","score":null,"unit":"ELO","variant":null,"source_type":"independent","evidence_id":"E018"}],"comparability":"not_comparable","notes":"Chatbot Arena ELO scores for specific model versions not confirmed from primary sources at research date. Rankings shift continuously. Null scores recorded."}],"deployment_efficiency":{"models":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","total_parameters_b":30.5,"active_parameters_b":3,"minimum_memory_gb":20,"recommended_memory_gb":24,"memory_notes":"At BF16 precision: ~61 GB total weights, but only ~6 GB active parameters loaded per forward pass in optimized runtimes. With INT4/Q4 quantization (e.g., GGUF Q4_K_M): ~17-20 GB for full weight loading. Minimum 20 GB VRAM estimated for Q4 quantized inference; 24 GB recommended for comfortable headroom. Assumption: memory estimate based on parameter count and standard quantization ratios; not directly measured. A single RTX 4090 (24 GB) can run Q4-quantized variant.","quantization_options":["BF16","FP16","INT8","Q4_K_M (GGUF)","Q5_K_M (GGUF)","Q8_0 (GGUF)","AWQ","GPTQ"],"supported_runtimes":["llama.cpp","Ollama","vLLM","LMDeploy","HuggingFace Transformers","SGLang","mlx-lm (Apple Silicon)"],"air_gap_ready":"yes","air_gap_notes":"Model weights and tokenizer can be downloaded from Hugging Face and run fully offline. No external API calls required during inference. Standard dependencies (PyTorch, transformers, llama.cpp) can be pre-installed offline. No DRM or phone-home mechanisms identified in Apache 2.0 license.","evidence_ids":["E005","E006","E007","E009","E019"]},{"model":"DeepSeek-V3 (0324 / closest to V3.2)","total_parameters_b":671,"active_parameters_b":37,"minimum_memory_gb":400,"recommended_memory_gb":700,"memory_notes":"At BF16 full precision: ~1.3 TB. Minimum estimate (~400 GB) assumes aggressive INT4 quantization across all layers, multi-GPU setup required (e.g., 8x H100 80GB for INT4). Recommended 700 GB+ for BF16/FP8 inference on production hardware. Consumer single-GPU deployment is not feasible. Assumption: estimates based on standard GB-per-billion-parameter ratios at respective precisions; not directly measured per published spec.","quantization_options":["BF16","FP8","INT4 (via llama.cpp/AWQ for reduced configs)","Q4_K_M (GGUF, community)"],"supported_runtimes":["vLLM","SGLang","LMDeploy","llama.cpp (with multi-GPU or quantization)","HuggingFace Transformers"],"air_gap_ready":"conditional","air_gap_notes":"Weights are open (MIT license) and can be downloaded for offline use. However, the hardware footprint (multi-GPU servers) creates a practical barrier for many air-gapped environments. No external API calls required during inference. Conditional rating reflects infrastructure complexity, not a technical air-gap block.","evidence_ids":["E001","E002","E013","E020"]}]},"capability_matrix":[{"capability":"conversation","models":[{"model":"Qwen3-30B-A3B","status":"yes","notes":"Instruction-tuned chat variant available. Non-thinking mode supports standard conversational interaction.","evidence_ids":["E007"]},{"model":"DeepSeek-V3","status":"yes","notes":"Chat/instruct variant with strong conversational benchmark performance.","evidence_ids":["E001","E003"]}]},{"capability":"reasoning","models":[{"model":"Qwen3-30B-A3B","status":"yes","notes":"Extended thinking mode provides chain-of-thought reasoning. Thinking mode scores (GPQA: 63.0%, MATH-500: 85.7%) are competitive for model size but trail larger active-parameter models.","evidence_ids":["E007","E011"]},{"model":"DeepSeek-V3","status":"yes","notes":"Strong reasoning without dedicated thinking mode. GPQA Diamond 68.4%, MATH-500 90.2% (vendor-published).","evidence_ids":["E003"]}]},{"capability":"instruction_following","models":[{"model":"Qwen3-30B-A3B","status":"yes","notes":"IFEval and similar benchmarks show strong instruction following. Exact IFEval scores not confirmed from independent sources.","evidence_ids":["E007","E011"]},{"model":"DeepSeek-V3","status":"yes","notes":"Vendor-reported strong instruction following. IFEval 88.0% (vendor-published, March 2025 report).","evidence_ids":["E003"]}]},{"capability":"long_context","models":[{"model":"Qwen3-30B-A3B","status":"partial","notes":"Native context: 32K tokens. Some sources indicate YaRN-based extrapolation to longer contexts but not uniformly confirmed across all runtimes. Practical long-context performance at 32K+ not independently benchmarked.","evidence_ids":["E005","E007"]},{"model":"DeepSeek-V3","status":"yes","notes":"128K token native context window, confirmed in official documentation.","evidence_ids":["E013","E001"]}]},{"capability":"multilingual","models":[{"model":"Qwen3-30B-A3B","status":"yes","notes":"119 languages supported per official documentation. Explicit multilingual training corpus.","evidence_ids":["E007","E008"]},{"model":"DeepSeek-V3","status":"yes","notes":"Strong multilingual capability reported; primary training emphasis on Chinese and English. Exact language count not specified in primary sources reviewed.","evidence_ids":["E001","E003"]}]},{"capability":"coding","models":[{"model":"Qwen3-30B-A3B","status":"yes","notes":"LiveCodeBench v0.5 51.4% (thinking mode, vendor-published). Competitive for model size.","evidence_ids":["E011"]},{"model":"DeepSeek-V3","status":"yes","notes":"LiveCodeBench 49.2%, HumanEval 92.0% (vendor-published). Top-tier open-weight coding performance.","evidence_ids":["E003"]}]},{"capability":"tool_use","models":[{"model":"Qwen3-30B-A3B","status":"yes","notes":"Function calling and tool use supported per official model card. MCP (Model Context Protocol) support noted in Qwen3 blog.","evidence_ids":["E007"]},{"model":"DeepSeek-V3","status":"yes","notes":"Tool calling / function calling supported in instruct variant.","evidence_ids":["E001","E003"]}]},{"capability":"structured_output","models":[{"model":"Qwen3-30B-A3B","status":"yes","notes":"JSON mode and structured output supported through instruction following and compatible runtime constraints (vLLM, SGLang).","evidence_ids":["E007","E019"]},{"model":"DeepSeek-V3","status":"yes","notes":"JSON mode supported; structured output available via compatible runtimes.","evidence_ids":["E001"]}]},{"capability":"agent_use","models":[{"model":"Qwen3-30B-A3B","status":"yes","notes":"Designed with agentic use in mind per Qwen3 blog. Supports tool calling, MCP, multi-step planning in thinking mode.","evidence_ids":["E007"]},{"model":"DeepSeek-V3","status":"yes","notes":"Supports agentic workflows; strong tool use and instruction following enable agent frameworks.","evidence_ids":["E001","E003"]}]}],"competitor_deep_dives":[{"competitor":"DeepSeek-V3 (March 2025 / 0324 update; treated as proxy for 'DeepSeek-V3.2')","threat_level":"high","where_they_beat_product":[{"text":"Higher raw benchmark performance across MMLU, GPQA Diamond, MATH-500, and HumanEval due to 37B active parameters vs ~3B active.","evidence_ids":["E003","E011"]},{"text":"Longer native context window: 128K tokens vs 32K tokens for Qwen3-30B-A3B.","evidence_ids":["E013","E005"]},{"text":"Larger community mindshare and broader third-party integration ecosystem following high-profile open-weight release.","evidence_ids":["E014","E015"]}],"where_product_beats_them":[{"text":"Radically lower active parameter count (3B vs 37B) enables consumer-GPU local inference that DeepSeek-V3 cannot match.","evidence_ids":["E005","E006"]},{"text":"Hybrid thinking/non-thinking mode in a single model provides flexibility without deploying separate reasoning vs. standard models.","evidence_ids":["E007"]},{"text":"Broader multilingual support: 119 languages vs DeepSeek-V3's Chinese/English primary focus.","evidence_ids":["E007","E008"]},{"text":"LiveCodeBench v0.5 (51.4% vs 49.2%, vendor-published, thinking mode) suggests competitive or slightly better coding performance per active parameter. Caveat: thinking mode advantage.","evidence_ids":["E011","E003"]}],"recent_moves":[{"text":"DeepSeek released updated V3 (0324) with improved coding and instruction following in March 2025, rapidly adopted by the open-source community.","date":"2025-03-24","evidence_ids":["E003","E004"]},{"text":"DeepSeek-R1 (reasoning model) released alongside V3 updates, expanding DeepSeek's portfolio to cover both reasoning and standard inference use cases.","date":"2025-01-20","evidence_ids":["E021"]}],"implication":"DeepSeek is iterating rapidly and has demonstrated the ability to release frontier-level open-weight models. If DeepSeek releases a small-active-parameter MoE model, Qwen3-30B-A3B's primary differentiator (consumer-GPU deployability) would be at risk. The product team should accelerate efficiency benchmarking and deepen the deployment tooling advantage.","evidence_ids":["E001","E002","E003","E004","E014"]}],"ecosystem_adoption":[{"model":"Qwen3-30B-A3B (proxy for Qwen3.5-35B-A3B)","huggingface_downloads":null,"huggingface_downloads_period":null,"runtime_support":["llama.cpp","Ollama","vLLM","LMDeploy","HuggingFace Transformers","SGLang","mlx-lm"],"quantization_ecosystem":"medium","community_signals":["Available on Hugging Face under Qwen organization with multiple quantized variants from community quantizers","Ollama library includes Qwen3 30B-A3B entry","Active discussion in r/LocalLLaMA community regarding efficiency profile","Qwen3 family broadly adopted given Qwen2.5 predecessor popularity"],"notes":"Exact download counts not surfaced from primary sources at research date. Qwen3-30B-A3B is part of the Qwen3 family released April 2025; community traction is growing but ecosystem maturity trails Qwen2.5 and DeepSeek-V3.","evidence_ids":["E006","E007","E019","E022"]},{"model":"DeepSeek-V3 (0324)","huggingface_downloads":null,"huggingface_downloads_period":null,"runtime_support":["vLLM","SGLang","LMDeploy","llama.cpp","HuggingFace Transformers"],"quantization_ecosystem":"strong","community_signals":["One of the most downloaded open-weight models on Hugging Face in Q1 2025","Multiple community quantization projects (GGUF, AWQ, GPTQ) available within days of release","Widely benchmarked by independent researchers and organizations","High Chatbot Arena activity reported"],"notes":"DeepSeek-V3 has strong ecosystem momentum. Exact HF download counts not confirmed from primary sources; community signals sourced from reputable technical publications.","evidence_ids":["E001","E014","E015","E020"]}],"strategic_actions":[{"priority":1,"category":"investigate","action":"Verify and clarify the model name 'Qwen3.5-35B-A3B' in all public-facing materials. Confirm whether this is a released product, a planned product, or an alias for an existing model (e.g., Qwen3-30B-A3B).","rationale":"No verified public release of 'Qwen3.5-35B-A3B' was found. This creates a critical gap in competitive intelligence and may indicate a naming discrepancy, unreleased model, or product roadmap item. All downstream dashboard accuracy depends on resolving this.","evidence_ids":["E012"]},{"priority":2,"category":"defend","action":"Double down on consumer-GPU deployability as a primary differentiator. Publish official hardware compatibility matrices and inference benchmarks (tokens/sec on RTX 4090, MacBook Pro M3, etc.) to make the efficiency advantage concrete and searchable.","rationale":"Qwen3-30B-A3B's 3B active parameters enable local deployment on hardware DeepSeek-V3 cannot approach. This advantage is not being communicated with sufficient technical specificity in current public documentation.","evidence_ids":["E005","E006","E007"]},{"priority":3,"category":"improve","action":"Extend native context window to 128K tokens to match DeepSeek-V3 and eliminate this as a competitive gap, particularly for document-processing and long-context agentic use cases.","rationale":"DeepSeek-V3 natively supports 128K tokens. Qwen3-30B-A3B's 32K limit is a material disadvantage for enterprise and agentic workloads.","evidence_ids":["E005","E013"]},{"priority":4,"category":"improve","action":"Submit Qwen3-30B-A3B (or successor) to independent benchmark organizations (BFCL, Chatbot Arena, OpenLLM Leaderboard v2) to generate independent, traceable performance evidence.","rationale":"Current benchmark evidence is predominantly vendor-published. Independent scores are needed for credibility in competitive comparisons and enterprise procurement evaluations.","evidence_ids":["E016","E017","E018"]},{"priority":5,"category":"monitor","action":"Track DeepSeek for release of any small-active-parameter MoE model. If DeepSeek releases a model with \u003c5B active parameters, it would directly threaten Qwen3-30B-A3B's primary efficiency advantage.","rationale":"DeepSeek has demonstrated rapid iteration and a willingness to release frontier models as open weights. A consumer-deployable DeepSeek MoE variant is a plausible near-term threat.","evidence_ids":["E001","E004","E021"]},{"priority":6,"category":"monitor","action":"Track 'DeepSeek-V3.2' — verify whether this is an officially released model version, a community alias, or a future release. Update dashboard when primary-source confirmation is available.","rationale":"The competitor named in the research brief ('DeepSeek-V3.2') could not be confirmed as a distinct named release in primary sources. The March 2025 update (0324) is the closest verified version. Misidentifying the competitor baseline creates strategic risk.","evidence_ids":["E001","E002","E003"]},{"priority":7,"category":"defend","action":"Publish an explicit air-gap deployment guide for Qwen3-30B-A3B, covering offline installation of all dependencies, quantization options, and tested runtime configurations for air-gapped environments.","rationale":"Air-gapped deployment is a key stated context for this product. Clear, tested documentation would differentiate from DeepSeek-V3, which lacks equivalent guidance and faces practical infrastructure barriers in air-gapped settings.","evidence_ids":["E009","E019"]}],"evidence":[{"id":"E001","claim":"DeepSeek-V3 is a 671B total / 37B active MoE model released as open weights under MIT license.","source_title":"DeepSeek-V3 Technical Report","publisher":"DeepSeek AI","url":"https://arxiv.org/abs/2412.19437","published_date":"2024-12-26","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"DeepSeek-V3, a strong Mixture-of-Experts (MoE) language model with 671B total parameters with 37B activated for each token."},{"id":"E002","claim":"DeepSeek-V3 scores at or near the top of open-weight model leaderboards.","source_title":"DeepSeek-V3 Technical Report","publisher":"DeepSeek AI","url":"https://arxiv.org/abs/2412.19437","published_date":"2024-12-26","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"Comprehensive evaluations reveal that DeepSeek-V3 outperforms other open-source models and achieves performance comparable to leading closed-source models."},{"id":"E003","claim":"DeepSeek-V3 (March 2025 / 0324 update) vendor-published benchmark scores: MMLU 88.5%, MATH-500 90.2%, HumanEval 92.0%, GPQA Diamond 68.4%, IFEval 88.0%, LiveCodeBench 49.2%.","source_title":"DeepSeek-V3-0324 Model Release / Hugging Face Model Card","publisher":"DeepSeek AI","url":"https://huggingface.co/deepseek-ai/DeepSeek-V3-0324","published_date":"2025-03-24","accessed_date":"2025-07-14","source_type":"official","confidence":"medium","quote_or_data":"Benchmark scores reported on model card for DeepSeek-V3-0324. Scores are vendor-published; exact prompting and evaluation methodology details may not be fully specified."},{"id":"E004","claim":"DeepSeek released an updated V3 model (0324) in March 2025 with improved coding and instruction following.","source_title":"DeepSeek-V3-0324 Model Release","publisher":"DeepSeek AI","url":"https://huggingface.co/deepseek-ai/DeepSeek-V3-0324","published_date":"2025-03-24","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"Updated DeepSeek-V3 model released March 24, 2025, with improvements to coding and instruction following tasks."},{"id":"E005","claim":"Qwen3-30B-A3B has 30.5B total parameters, 3B active parameters, 32K native context window.","source_title":"Qwen3-30B-A3B Model Card","publisher":"Alibaba / Qwen","url":"https://huggingface.co/Qwen/Qwen3-30B-A3B","published_date":"2025-04-29","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"30.5B total parameters, 3B activated parameters per forward pass, 32768 token context length."},{"id":"E006","claim":"Qwen3-30B-A3B can run on consumer hardware due to low active parameter count.","source_title":"Qwen3-30B-A3B Model Card / Ollama Library","publisher":"Alibaba / Qwen; Ollama","url":"https://ollama.com/library/qwen3","published_date":"2025-04-29","accessed_date":"2025-07-14","source_type":"official","confidence":"medium","quote_or_data":"Qwen3:30b-a3b listed in Ollama library, enabling single-command local inference on compatible consumer hardware."},{"id":"E007","claim":"Qwen3 series supports 119 languages, hybrid thinking/non-thinking mode, tool calling, MCP support, and agentic use.","source_title":"Qwen3: Think Deeper, Act Faster — Qwen Blog","publisher":"Alibaba / Qwen","url":"https://qwenlm.github.io/blog/qwen3/","published_date":"2025-04-29","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"Qwen3 supports 119 languages and dialects... all models support the thinking mode... function calling, code execution, MCP..."},{"id":"E008","claim":"Qwen3 multilingual training covers 119 languages.","source_title":"Qwen3 Technical Report","publisher":"Alibaba / Qwen","url":"https://arxiv.org/abs/2505.09388","published_date":"2025-05-14","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"Trained on data covering 119 languages and dialects."},{"id":"E009","claim":"Qwen3 models are released under Apache 2.0 license.","source_title":"Qwen3-30B-A3B Model Card — License","publisher":"Alibaba / Qwen","url":"https://huggingface.co/Qwen/Qwen3-30B-A3B/blob/main/LICENSE","published_date":"2025-04-29","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"Apache License, Version 2.0"},{"id":"E010","claim":"DeepSeek-V3 is released under MIT license.","source_title":"DeepSeek-V3 GitHub Repository — License","publisher":"DeepSeek AI","url":"https://github.com/deepseek-ai/DeepSeek-V3/blob/main/LICENSE-MODEL","published_date":"2024-12-26","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"MIT License"},{"id":"E011","claim":"Qwen3-30B-A3B vendor-published benchmark scores: MMLU ~79.5%, MATH-500 85.7% (thinking), GPQA Diamond 63.0% (thinking), LiveCodeBench v0.5 51.4% (thinking).","source_title":"Qwen3 Blog — Benchmark Tables","publisher":"Alibaba / Qwen","url":"https://qwenlm.github.io/blog/qwen3/","published_date":"2025-04-29","accessed_date":"2025-07-14","source_type":"official","confidence":"medium","quote_or_data":"Benchmark results tables in Qwen3 blog post showing Qwen3-30B-A3B scores. Thinking mode results noted separately. MMLU approximate figure; exact value may vary by reported configuration."},{"id":"E012","claim":"'Qwen3.5-35B-A3B' not found as a released model in public sources as of 2025-07-14.","source_title":"Hugging Face Model Search — Qwen organization","publisher":"Hugging Face","url":"https://huggingface.co/Qwen","published_date":null,"accessed_date":"2025-07-14","source_type":"independent_benchmark","confidence":"high","quote_or_data":"Search of Qwen organization on Hugging Face returns no model named 'Qwen3.5-35B-A3B'. Closest match is 'Qwen3-30B-A3B'."},{"id":"E013","claim":"DeepSeek-V3 supports 128K token native context window.","source_title":"DeepSeek-V3 Technical Report","publisher":"DeepSeek AI","url":"https://arxiv.org/abs/2412.19437","published_date":"2024-12-26","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"DeepSeek-V3 supports a context window of 128K tokens."},{"id":"E014","claim":"DeepSeek-V3 has broad community adoption and third-party integration following high-profile open-weight release.","source_title":"The State of Open-Source LLMs: Q1 2025","publisher":"The Gradient","url":"https://thegradient.pub/","published_date":"2025-03-01","accessed_date":"2025-07-14","source_type":"technical_analysis","confidence":"medium","quote_or_data":"DeepSeek-V3 rapidly became one of the most downloaded open-weight models following its December 2024 release, with extensive community quantization and runtime support emerging within weeks."},{"id":"E015","claim":"DeepSeek-V3 has wider third-party runtime and integration ecosystem than Qwen3-30B-A3B.","source_title":"vLLM Supported Models Documentation","publisher":"vLLM Project","url":"https://docs.vllm.ai/en/latest/models/supported_models.html","published_date":null,"accessed_date":"2025-07-14","source_type":"official","confidence":"medium","quote_or_data":"Both DeepSeek-V3 and Qwen3 models listed in vLLM supported models. DeepSeek-V3 has earlier and more extensive runtime optimization documentation."},{"id":"E016","claim":"Qwen3-30B-A3B HumanEval score not found in primary sources.","source_title":"Qwen3 Blog — Benchmark Tables","publisher":"Alibaba / Qwen","url":"https://qwenlm.github.io/blog/qwen3/","published_date":"2025-04-29","accessed_date":"2025-07-14","source_type":"official","confidence":"medium","quote_or_data":"HumanEval score for Qwen3-30B-A3B not prominently reported in Qwen3 blog benchmark tables reviewed; LiveCodeBench used as primary coding benchmark."},{"id":"E017","claim":"BFCL leaderboard exists as an independent tool-use benchmark; specific scores for these model versions not confirmed at research date.","source_title":"Berkeley Function-Calling Leaderboard","publisher":"UC Berkeley Sky Computing Lab","url":"https://gorilla.cs.berkeley.edu/leaderboard.html","published_date":null,"accessed_date":"2025-07-14","source_type":"independent_benchmark","confidence":"medium","quote_or_data":"BFCL leaderboard lists multiple models; specific entries for Qwen3-30B-A3B and DeepSeek-V3-0324 not confirmed from direct review at research date."},{"id":"E018","claim":"Chatbot Arena ELO scores for these specific model versions not confirmed from primary sources at research date.","source_title":"Chatbot Arena Leaderboard","publisher":"LMSYS / UC Berkeley","url":"https://chat.lmsys.org/?leaderboard","published_date":null,"accessed_date":"2025-07-14","source_type":"independent_benchmark","confidence":"medium","quote_or_data":"Chatbot Arena leaderboard is dynamic and updated continuously. Specific ELO scores for Qwen3-30B-A3B and DeepSeek-V3-0324 not confirmed with date-anchored primary-source access."},{"id":"E019","claim":"Qwen3-30B-A3B is supported by llama.cpp, vLLM, SGLang, LMDeploy, HuggingFace Transformers, and mlx-lm.","source_title":"Qwen3-30B-A3B Model Card — Quickstart","publisher":"Alibaba / Qwen","url":"https://huggingface.co/Qwen/Qwen3-30B-A3B","published_date":"2025-04-29","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"Model card lists deployment examples for transformers, vLLM, SGLang, LMDeploy, Ollama, and llama.cpp."},{"id":"E020","claim":"DeepSeek-V3 deployment requires multi-GPU setup due to 671B total parameters; minimum infrastructure is approximately 8xH100 for FP8 inference.","source_title":"DeepSeek-V3 GitHub Repository — Inference README","publisher":"DeepSeek AI","url":"https://github.com/deepseek-ai/DeepSeek-V3","published_date":"2024-12-26","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"DeepSeek-V3 inference requires significant GPU resources; example configurations reference multi-GPU A100/H100 clusters. Consumer single-GPU deployment not supported for full-precision model."},{"id":"E021","claim":"DeepSeek-R1 (reasoning model) released January 2025, expanding DeepSeek's portfolio.","source_title":"DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning","publisher":"DeepSeek AI","url":"https://arxiv.org/abs/2501.12948","published_date":"2025-01-20","accessed_date":"2025-07-14","source_type":"official","confidence":"high","quote_or_data":"We introduce our first-generation reasoning models, DeepSeek-R1-Zero and DeepSeek-R1."},{"id":"E022","claim":"Qwen3 family has community traction on Hugging Face with multiple quantized variants.","source_title":"Hugging Face — Qwen3-30B-A3B community files","publisher":"Hugging Face / Community","url":"https://huggingface.co/models?search=qwen3-30b-a3b","published_date":null,"accessed_date":"2025-07-14","source_type":"community","confidence":"medium","quote_or_data":"Multiple community-uploaded GGUF and quantized variants of Qwen3-30B-A3B visible in Hugging Face model search. Community signal only; download counts not extracted."}]}</script>
+
+<script>
+(() => {
+  'use strict';
+
+  const app = document.getElementById('app');
+  const raw = document.getElementById('dashboard-data').textContent.trim();
+
+  if (raw === ('__DASHBOARD_' + 'DATA__')) {
+    app.textContent = 'Dashboard template loaded. Waiting for n8n to inject research JSON.';
+    app.className = 'empty';
+    return;
+  }
+
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch (error) {
+    const box = document.createElement('div');
+    box.className = 'error';
+    box.textContent = 'Dashboard data is not valid JSON: ' + error.message;
+    app.appendChild(box);
+    return;
+  }
+
+  const arr = value => Array.isArray(value) ? value : [];
+  const value = (v, fallback = 'Unknown') => (v === null || v === undefined || v === '') ? fallback : String(v);
+  const join = (v, sep = ', ') => arr(v).filter(x => x !== null && x !== undefined && x !== '').join(sep);
+  const evidence = ids => join(ids) || 'No evidence ID';
+
+  function el(tag, text, className) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = String(text);
+    return node;
+  }
+
+  function append(parent, ...children) {
+    children.filter(Boolean).forEach(child => parent.appendChild(child));
+    return parent;
+  }
+
+  function section(title) {
+    const s = el('section');
+    s.appendChild(el('h2', title));
+    app.appendChild(s);
+    return s;
+  }
+
+  function card(title) {
+    const c = el('div', null, 'card');
+    if (title) c.appendChild(el('h3', title));
+    return c;
+  }
+
+  function badge(text, extraClass = '') {
+    return el('span', text, ('badge ' + extraClass).trim());
+  }
+
+  function list(items, renderer, emptyText = 'None identified.') {
+    const ul = el('ul');
+    const rows = arr(items);
+    if (!rows.length) {
+      ul.appendChild(el('li', emptyText, 'empty'));
+      return ul;
+    }
+    rows.forEach(item => ul.appendChild(renderer(item)));
+    return ul;
+  }
+
+  function textEvidenceItem(item, prefix = '') {
+    const li = el('li');
+    if (prefix) li.appendChild(el('strong', prefix));
+    li.appendChild(document.createTextNode(value(item?.text, 'Insufficient evidence')));
+    li.appendChild(document.createTextNode(' '));
+    li.appendChild(el('span', '[' + evidence(item?.evidence_ids) + ']', 'small'));
+    return li;
+  }
+
+  function changeItem(item) {
+    const li = el('li');
+    li.appendChild(el('strong', value(item?.entity)));
+    li.appendChild(document.createTextNode(': ' + value(item?.change, 'Insufficient evidence')));
+    if (item?.date) li.appendChild(document.createTextNode(' (' + item.date + ')'));
+    li.appendChild(document.createTextNode(' '));
+    li.appendChild(el('span', '[' + evidence(item?.evidence_ids) + ']', 'small'));
+    return li;
+  }
+
+  function table(headers, rows) {
+    const wrap = el('div', null, 'scroll');
+    const t = el('table');
+    const thead = el('thead');
+    const hr = el('tr');
+    headers.forEach(h => hr.appendChild(el('th', h)));
+    thead.appendChild(hr);
+    t.appendChild(thead);
+
+    const tbody = el('tbody');
+    rows.forEach(row => {
+      const tr = el('tr');
+      row.forEach(cell => {
+        const td = el('td');
+        if (cell instanceof Node) td.appendChild(cell);
+        else td.textContent = value(cell, '');
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    t.appendChild(tbody);
+    wrap.appendChild(t);
+    return wrap;
+  }
+
+  function safeLink(url, label) {
+    const rawUrl = value(url, '');
+    try {
+      const parsed = new URL(rawUrl);
+      if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return el('span', value(label, rawUrl));
+      const a = el('a', value(label, rawUrl));
+      a.href = parsed.href;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      return a;
+    } catch {
+      return el('span', value(label, rawUrl || 'Unknown'));
+    }
+  }
+
+  const meta = data.meta || {};
+  const coverage = data.coverage || {};
+  const executive = data.executive_position || {};
+  const changes = data.changes || {};
+  const snapshot = data.product_snapshot || {};
+
+  document.title = value(meta.product, 'Product') + ' — Competitive Intelligence Dashboard';
+
+  // Header
+  const header = el('header');
+  header.appendChild(el('h1', value(meta.product, 'Product') + ' — Competitive Intelligence'));
+  header.appendChild(el('div',
+    'Provider: ' + value(meta.provider) + ' · Run: ' + value(meta.run_date) + ' · Window: ' + value(meta.research_window),
+    'meta'
+  ));
+  const badges = el('div');
+  badges.style.marginTop = '8px';
+  badges.appendChild(badge('Coverage: ' + value(coverage.overall), coverage.overall ? 'status-' + coverage.overall : ''));
+  badges.appendChild(badge('Perspective: ' + value(meta.perspective)));
+  badges.appendChild(badge('Change state: ' + value(changes.status)));
+  header.appendChild(badges);
+  app.appendChild(header);
+
+  // 1. Competitive Position
+  {
+    const s = section('1. Competitive Position');
+    s.appendChild(el('div', value(executive.headline, 'Insufficient evidence'), 'headline'));
+
+    const g1 = el('div', null, 'grid');
+    const overall = card('Overall Position');
+    overall.appendChild(el('p', value(executive.overall_position)));
+
+    const sc = executive.strongest_competitor || {};
+    const strongest = card('Strongest Competitor');
+    const pName = el('p');
+    pName.appendChild(el('strong', value(sc.name)));
+    strongest.appendChild(pName);
+    strongest.appendChild(el('p', value(sc.why, 'Insufficient evidence')));
+    strongest.appendChild(el('div', evidence(sc.evidence_ids), 'small'));
+
+    const bt = executive.biggest_threat || {};
+    const threat = card('Biggest Threat');
+    threat.appendChild(el('p', value(bt.text, 'Insufficient evidence')));
+    threat.appendChild(el('div', evidence(bt.evidence_ids), 'small'));
+
+    append(g1, overall, strongest, threat);
+    s.appendChild(g1);
+
+    const g2 = el('div', null, 'grid');
+    g2.style.marginTop = '12px';
+    const strengths = card('Top Strengths');
+    strengths.appendChild(list(executive.top_strengths, x => textEvidenceItem(x), 'No supported strengths found.'));
+    const weaknesses = card('Top Weaknesses');
+    weaknesses.appendChild(list(executive.top_weaknesses, x => textEvidenceItem(x), 'No supported weaknesses found.'));
+    append(g2, strengths, weaknesses);
+    s.appendChild(g2);
+  }
+
+  // 2. What Changed
+  {
+    const s = section('2. What Changed');
+    const g = el('div', null, 'grid');
+    [['New', changes.new], ['Changed', changes.changed], ['Removed', changes.removed]].forEach(([title, items]) => {
+      const c = card(title);
+      c.appendChild(list(items, changeItem));
+      g.appendChild(c);
+    });
+    s.appendChild(g);
+  }
+
+  // 3. Product Snapshot
+  {
+    const s = section('3. Product Snapshot');
+    const modelUrl = safeLink(snapshot.official_model_url, snapshot.official_model_url || 'Unknown');
+    s.appendChild(table(['Field', 'Value'], [
+      ['Architecture', value(snapshot.architecture)],
+      ['Total Parameters', snapshot.total_parameters_b == null ? 'Unknown' : snapshot.total_parameters_b + ' B'],
+      ['Active Parameters', snapshot.active_parameters_b == null ? 'Unknown' : snapshot.active_parameters_b + ' B'],
+      ['Context Window', value(snapshot.context_window_tokens)],
+      ['License', value(snapshot.license)],
+      ['Modalities', join(snapshot.modalities) || 'Unknown'],
+      ['Release Date', value(snapshot.release_date)],
+      ['Official Model', modelUrl],
+      ['Evidence', evidence(snapshot.evidence_ids)]
+    ]));
+  }
+
+  // 4. Benchmark Scorecard
+  {
+    const s = section('4. Benchmark Scorecard');
+    const benchmarks = arr(data.benchmark_scorecard);
+    if (!benchmarks.length) {
+      s.appendChild(el('p', 'No sufficiently reliable benchmark comparisons found.', 'empty'));
+    } else {
+      benchmarks.forEach(b => {
+        const c = card(value(b.benchmark) + ' — ' + value(b.category));
+        c.style.marginBottom = '12px';
+        c.appendChild(el('div', 'Comparability: ' + value(b.comparability) + (b.notes ? ' · ' + b.notes : ''), 'small'));
+        c.appendChild(table(['Model', 'Score', 'Variant', 'Source Type', 'Evidence'], arr(b.scores).map(sx => [
+          value(sx.model),
+          (sx.score == null ? 'N/A' : sx.score) + (sx.unit ? ' ' + sx.unit : ''),
+          value(sx.variant, ''),
+          value(sx.source_type, ''),
+          value(sx.evidence_id, '')
+        ])));
+        s.appendChild(c);
+      });
+    }
+  }
+
+  // 5. Local Deployment & Efficiency
+  {
+    const s = section('5. Local Deployment & Efficiency');
+    const models = arr(data.deployment_efficiency?.models);
+    s.appendChild(table(
+      ['Model', 'Total B', 'Active B', 'Min Memory GB', 'Recommended GB', 'Quantization', 'Runtimes', 'Air-Gap', 'Notes', 'Evidence'],
+      models.map(m => [
+        value(m.model),
+        m.total_parameters_b ?? '?',
+        m.active_parameters_b ?? '?',
+        m.minimum_memory_gb ?? '?',
+        m.recommended_memory_gb ?? '?',
+        join(m.quantization_options),
+        join(m.supported_runtimes),
+        value(m.air_gap_ready),
+        [m.memory_notes, m.air_gap_notes].filter(Boolean).join(' '),
+        evidence(m.evidence_ids)
+      ])
+    ));
+  }
+
+  // 6. Capability Matrix
+  {
+    const s = section('6. Capability Matrix');
+    const rows = [];
+    arr(data.capability_matrix).forEach(cap => {
+      arr(cap.models).forEach(m => rows.push([
+        value(cap.capability), value(m.model), value(m.status), value(m.notes, ''), evidence(m.evidence_ids)
+      ]));
+    });
+    s.appendChild(table(['Capability', 'Model', 'Status', 'Notes', 'Evidence'], rows));
+  }
+
+  // 7. Competitor Deep Dives
+  {
+    const s = section('7. Competitor Deep Dives');
+    const g = el('div', null, 'grid');
+    arr(data.competitor_deep_dives).forEach(cmp => {
+      const c = card(value(cmp.competitor) + ' — Threat: ' + value(cmp.threat_level));
+
+      c.appendChild(el('strong', 'Where they beat the product'));
+      c.appendChild(list(cmp.where_they_beat_product, x => textEvidenceItem(x), 'No supported advantage identified.'));
+
+      c.appendChild(el('strong', 'Where the product beats them'));
+      c.appendChild(list(cmp.where_product_beats_them, x => textEvidenceItem(x), 'No supported advantage identified.'));
+
+      c.appendChild(el('strong', 'Recent Moves'));
+      c.appendChild(list(cmp.recent_moves, x => {
+        const li = el('li');
+        li.appendChild(document.createTextNode(value(x.text, 'Insufficient evidence')));
+        if (x.date) li.appendChild(document.createTextNode(' (' + x.date + ')'));
+        li.appendChild(document.createTextNode(' '));
+        li.appendChild(el('span', '[' + evidence(x.evidence_ids) + ']', 'small'));
+        return li;
+      }, 'No recent move identified.'));
+
+      c.appendChild(el('strong', 'Implication'));
+      c.appendChild(el('p', value(cmp.implication, 'Insufficient evidence')));
+      g.appendChild(c);
+    });
+    s.appendChild(g);
+  }
+
+  // 8. Ecosystem & Adoption
+  {
+    const s = section('8. Ecosystem & Adoption');
+    s.appendChild(table(
+      ['Model', 'HF Downloads', 'Runtime Support', 'Quantization Ecosystem', 'Community Signals', 'Evidence'],
+      arr(data.ecosystem_adoption).map(e => [
+        value(e.model),
+        (e.huggingface_downloads == null ? 'N/A' : e.huggingface_downloads) + (e.huggingface_downloads_period ? ' / ' + e.huggingface_downloads_period : ''),
+        join(e.runtime_support),
+        value(e.quantization_ecosystem),
+        join(e.community_signals, '; ') + (e.notes ? ' — ' + e.notes : ''),
+        evidence(e.evidence_ids)
+      ])
+    ));
+  }
+
+  // 9. Strategic Actions
+  {
+    const s = section('9. Strategic Actions');
+    const actions = [...arr(data.strategic_actions)].sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
+    s.appendChild(table(
+      ['Priority', 'Category', 'Action', 'Rationale', 'Evidence'],
+      actions.map(a => [a.priority ?? '', value(a.category), value(a.action), value(a.rationale), evidence(a.evidence_ids)])
+    ));
+  }
+
+  // 10. Evidence
+  {
+    const s = section('10. Evidence');
+    const rows = arr(data.evidence).map(e => {
+      const source = el('div');
+      source.appendChild(safeLink(e.url, e.source_title || e.url || 'Source'));
+      source.appendChild(el('br'));
+      source.appendChild(el('span', value(e.publisher, ''), 'small'));
+
+      const date = el('div');
+      date.appendChild(document.createTextNode(value(e.published_date, 'N/A')));
+      date.appendChild(el('br'));
+      date.appendChild(el('span', 'Accessed ' + value(e.accessed_date, 'N/A'), 'small'));
+
+      return [value(e.id), value(e.claim), source, date, value(e.source_type), value(e.confidence), value(e.quote_or_data, '')];
+    });
+    s.appendChild(table(['ID', 'Claim / Data', 'Source', 'Date', 'Type', 'Confidence', 'Supporting Data'], rows));
+  }
+
+  // Coverage Details
+  {
+    const s = section('Coverage Details');
+    s.appendChild(table(
+      ['Topic', 'Status', 'Notes'],
+      arr(coverage.topics).map(t => [value(t.topic), value(t.status), value(t.notes, '')])
+    ));
+  }
+})();
+</script>
+
+</body>
+</html>
